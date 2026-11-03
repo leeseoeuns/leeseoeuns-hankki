@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F3B27">
+<title>한 끼 여권</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<aside class="aside">
+  <div class="cap or" style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#FF7036">PROTOTYPE · iPhone 18</div>
+  <h1 style="margin-top:8px">한 끼 여권</h1>
+  <p>요리 키트로 떠나는 세계 여행.<br>화면을 눌러 직접 체험해 보세요.<br>병아리를 톡 누르면 반응해요.</p>
+  <div class="jump">
+    <button onclick="HK.go('A1',{},'root')">처음부터</button>
+    <button onclick="HK.go('home',{},'root')">홈</button>
+    <button onclick="HK.go('C1',{id:'pakkapao'},'root')">레시피</button>
+    <button onclick="HK.go('CS',{id:'pakkapao',s:'0'},'root')">요리 모드</button>
+    <button onclick="HK.go('fridge',{},'root')">냉털</button>
+    <button onclick="HK.go('feed',{},'root')">피드</button>
+    <button onclick="HK.go('passport',{},'root')">여권</button>
+    <button onclick="HK.go('B5',{},'root')">세계 셰프</button>
+    <button onclick="HK.go('kitchen',{},'root')">나의 주방</button>
+  </div>
+  <p style="margin-top:20px"><button onclick="HK.reset()" style="font-size:12px;font-weight:700;text-decoration:underline;color:var(--g)">체험 기록 지우기</button></p>
+</aside>
+<div class="phone"><div class="stack"></div></div>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/screens-a.js"></script>
+<script src="js/screens-b.js"></script>
+<script>HK.start();</script>
+</body>
+</html>
