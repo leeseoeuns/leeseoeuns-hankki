@@ -78,25 +78,27 @@ SCR.home = { tab:'home',
   render:()=>{ const cartN = S.cart.reduce((a,c)=>a+c.qty,0); const st = Object.keys(S.stamps).length; const tyo = HK.kit('TYO');
   return `<div class="bar bg" style="height:132px;align-items:flex-start;padding-top:62px"><div style="padding-left:4px"><div class="s">세라님, 반가워요</div><div class="h1">태국 여행 중이에요</div></div>
      <div class="row g8"><button class="ib" data-go="K4" aria-label="장바구니">${ic('cart')}${cartN?`<span class="cnt">${cartN}</span>`:''}</button><button class="ib" data-act="noti" aria-label="알림">${ic('bell')}<span class="dot"></span></button></div></div>
-   <div class="scroll" style="padding-bottom:120px"><div style="height:140px"></div><div class="pad">
-   <div class="ticket g tap" data-go="K2?code=TYO" style="padding:20px 20px 22px">
-     <div class="row sp"><span class="cap lime">다음 여행지 · 이번 주 추천</span><button class="xs" style="color:var(--lime);font-weight:700" data-go="K1">전체 보기</button></div>
-     <div class="row sp mt8"><div><div style="font-size:44px;font-weight:700;color:var(--lime);line-height:1.1">TYO</div><div class="bb mt8">일본 키트</div><div class="xs" style="color:var(--lime2)">${tyo.recipes.join(' · ')}</div></div>
-       <div style="text-align:right;align-self:flex-end"><div class="h2">${won(tyo.price)}</div><div class="xs" style="color:var(--lime2)">5인분 이내</div></div></div>
-     <div class="perf" style="top:178px"></div><div class="notch" style="left:-12px;top:166px"></div><div class="notch" style="right:-12px;top:166px"></div>
-     <div class="hscroll" style="margin-top:40px;margin-left:-20px;margin-right:-20px;padding:0 20px">${HK.KITS.map(k=>`<button class="chip" style="height:30px;font-size:12px;font-weight:700;background:${k.code==='TYO'?'var(--lime)':'rgba(255,255,255,.1)'};color:${k.code==='TYO'?'var(--g)':'#fff'};border:0" data-go="K2?code=${k.code}">${S.stamps[k.code]?ic('check',12):''}${k.code}</button>`).join('')}</div>
-     <div class="mt16">${HK.btn('일본 키트 주문하기','data-act="quickTYO"','l')}</div></div>
+   <div class="scroll" style="padding-bottom:120px"><div style="height:152px"></div><div class="pad">
+   <div class="ticket g tap" data-go="K2?code=TYO" style="height:464px;overflow:hidden">
+     <div class="wm" style="position:absolute;right:-18px;top:-8px;opacity:.4;color:var(--lime);pointer-events:none">${HK.lm('TYO',190)}</div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:24px"><span class="cap lime">다음 여행지 · 이번 주 추천</span><button class="cap row g4" style="color:var(--lime)" data-go="K1">전체 보기${ic('next',12)}</button></div>
+     <div style="position:absolute;left:21px;top:48px;font-size:64px;font-weight:700;color:var(--lime);line-height:1.1">TYO</div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:136px"><div class="h2">일본 키트</div><div class="h2">${won(tyo.price)}</div></div>
+     <div class="s" style="position:absolute;left:24px;top:168px;color:var(--lime2)">${tyo.recipes.join(' · ')}</div>
+     <div class="hscroll" style="position:absolute;left:0;right:0;top:214px;margin:0;padding:0 24px">${HK.KITS.map(k=>`<button class="chip" style="height:28px;font-size:12px;font-weight:700;background:${k.code==='TYO'?'var(--lime)':'rgba(255,255,255,.1)'};color:${k.code==='TYO'?'var(--g)':'#fff'};border:0;flex:none" data-go="K2?code=${k.code}">${S.stamps[k.code]?ic('check',12):''}${k.code}</button>`).join('')}</div>
+     <div class="perf" style="top:284px"></div><div class="notch" style="left:-12px;top:272px"></div><div class="notch" style="right:-12px;top:272px"></div>
+     ${[[24,'PASSENGER','이세라'],[134,'SEAT','5인분 이내'],[244,'GATE','TYO']].map(([x,l,v])=>`<div style="position:absolute;left:${x}px;top:308px"><div class="xs" style="color:var(--lime2)">${l}</div><div class="bb" style="margin-top:3px">${v}</div></div>`).join('')}
+     <div style="position:absolute;left:24px;right:24px;top:384px">${HK.btn('일본 키트 주문하기','data-act="quickTYO"','l')}</div></div>
+
+   <div class="card mt16 tap row g12" data-go="K6" style="padding:18px 16px;height:80px;gap:10px"><div class="ico" style="background:#FFF0E8;color:var(--or);width:44px;height:44px;flex:none">${ic('box')}</div><div class="f1" style="min-width:0"><div class="bb ellip" style="letter-spacing:-.03em">태국 소스가 거의 떨어졌어요</div><div class="xs ellip" style="margin-top:2px">요리 3번 완료 · 피시소스 외 2가지 리필</div></div><span class="pill or" style="height:33px;padding:0 10px;flex:none">6,900원</span></div>
 
    <div class="card mt16 tap" data-go="C1?id=pakkapao" style="overflow:hidden">
      ${HK.photo('assets/img/pakkapao.jpg',160,0)}
      <div style="position:absolute;left:16px;top:58px">${HK.chick('bowl',108,'bob')}</div>
      <div style="position:absolute;right:16px;top:96px;color:var(--or)">${HK.stamp('BKK',{size:64,date:'NOV 26'})}</div>
-     <div style="padding:18px 20px 20px"><div class="cap or">NOW TRAVELING · BKK</div><div class="h2 mt4">오늘은 팟카파오 무 어때요?</div><div class="s">15분 · 쉬움 · 키트 재료가 다 있어요</div>
-     <div class="row g12 mt12"><span class="xs" style="font-weight:700;color:var(--g)">태국 레시피 1 / 3</span><div class="progress f1"><i style="width:33%"></i></div></div>
-     <div class="mt16" data-go="C2?id=pakkapao">${HK.btn('요리 시작하기','','p')}</div></div></div>
-
-
-   <div class="card mt16 tap row g12" data-go="K6" style="padding:16px"><div class="ico" style="background:#FFF0E8;color:var(--or)">${ic('box')}</div><div class="f1"><div class="sb7">태국 소스가 거의 떨어졌어요</div><div class="xs">요리 3번 완료 · 피시소스 외 2가지 리필</div></div><span class="pill or">6,900원</span></div>
+     <div style="padding:18px 20px 16px"><div class="cap or">NOW TRAVELING · BKK</div><div class="h2" style="margin-top:5px">오늘은 팟카파오 무 어때요?</div><div class="s" style="margin-top:4px">15분 · 쉬움 · 키트 재료가 다 있어요</div>
+     <div class="row g12" style="margin-top:14px"><span class="xs" style="font-weight:700;color:var(--g)">태국 레시피 1 / 3</span><div class="progress f1"><i style="width:33%"></i></div></div>
+     <div style="margin:20px -4px 0" data-go="C2?id=pakkapao">${HK.btn('요리 시작하기','','p')}</div></div></div>
 
    <div class="row sp mt32"><div class="h2">이번 주 인기 레시피</div><button class="xs" style="font-weight:700;color:var(--g)" data-tab="feed">더 보기</button></div>
    <div class="hscroll mt12">${[['PAR','오븐 없이 마들렌',231,'assets/img/madeleine-lemon.jpg',3],['BKK','팟카파오 무 성공!',128,'assets/img/pakkapao.jpg',1],['TYO','10분 규동',89,'assets/img/gyudon.jpg',4],['SEL','양배추 참치덮밥',64,'assets/img/cabbage-tuna.jpg',2]].map(([c,t,l,img,pi])=>`<div class="card tap" style="width:160px;flex:none;overflow:hidden" data-go="E1D?id=p${pi}">${HK.photo(img,120,0)}<span class="pill soft" style="position:absolute;left:10px;top:10px;background:#fff">${c}</span><div style="padding:10px 12px 12px"><div class="sb7 ellip">${t}</div><div class="xs row g4 mt4" style="color:var(--or)">${ic('heart',12)}${l}</div></div></div>`).join('')}</div>
@@ -109,7 +111,7 @@ SCR.home = { tab:'home',
      <div class="bb mt8">도장 ${st} / 9</div><div class="row g8 mt12">${HK.KITS.map(k=>S.stamps[k.code]?HK.stamp(k.code,{size:30,rot:-8}):`<div style="width:30px;height:30px;border-radius:15px;border:1.5px dashed rgba(17,17,17,.2)"></div>`).join('')}</div></div>
 
    <div class="card g mt16 tap" data-go="K2?code=PAR" style="padding:22px 20px;height:150px;overflow:hidden"><div class="cap lime">NEW · 베이킹 시리즈</div><div class="h2 mt8">오븐 없이 만드는\n마들렌 키트</div><div class="xs mt8" style="color:var(--lime2)">프랑스 · 16,900원</div>
-     <div style="position:absolute;right:56px;top:20px;opacity:.25;color:var(--lime)">${HK.lm('PAR',110)}</div><div style="position:absolute;right:10px;bottom:-8px">${HK.chick('baking',120,'sway')}</div></div>
+     <div class="wm" style="position:absolute;right:56px;top:20px;opacity:.4;color:var(--lime)">${HK.lm('PAR',110)}</div><div style="position:absolute;right:10px;bottom:-8px">${HK.chick('baking',120,'sway')}</div></div>
 
    <div class="h2 mt32">동행 셰프 새 글</div>
    <div class="card mt12 tap row g12" data-go="E1D?id=p1" style="padding:14px 16px">${HK.avatar('minji',40)}<div class="f1"><div class="sb7">요리하는 민지</div><div class="xs ellip">10분 똠얌 라면 레시피를 올렸어요</div></div><span class="xs">방금</span></div>

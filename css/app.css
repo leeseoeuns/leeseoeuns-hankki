@@ -209,6 +209,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* 기타 */
 .lm{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wm .lm{stroke-width:.24}
 .progress{height:6px;border-radius:3px;background:#E3E8E4;overflow:hidden}
 .progress i{display:block;height:100%;background:var(--g);border-radius:3px}
 .dark .progress{background:rgba(255,255,255,.15)}
