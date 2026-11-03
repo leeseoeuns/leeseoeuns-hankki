@@ -79,7 +79,15 @@ SCR.home = { tab:'home',
   return `<div class="bar bg" style="height:132px;align-items:flex-start;padding-top:62px"><div style="padding-left:4px"><div class="s">세라님, 반가워요</div><div class="h1" style="font-size:26px">태국 여행 중이에요</div></div>
      <div class="row g8"><button class="ib" data-go="K4" aria-label="장바구니">${ic('cart')}${cartN?`<span class="cnt">${cartN}</span>`:''}</button><button class="ib" data-act="noti" aria-label="알림">${ic('bell')}<span class="dot"></span></button></div></div>
    <div class="scroll" style="padding-bottom:120px"><div style="height:140px"></div><div class="pad">
-   <div class="card tap" data-go="C1?id=pakkapao" style="overflow:hidden">
+   <div class="ticket g tap" data-go="K2?code=TYO" style="padding:20px 20px 22px">
+     <div class="row sp"><span class="cap lime">다음 여행지 · 이번 주 추천</span><button class="xs" style="color:var(--lime);font-weight:700" data-go="K1">전체 보기</button></div>
+     <div class="row sp mt8"><div><div style="font-size:44px;font-weight:700;color:var(--lime);line-height:1.1">TYO</div><div class="bb mt8">일본 키트</div><div class="xs" style="color:var(--lime2)">${tyo.recipes.join(' · ')}</div></div>
+       <div style="text-align:right;align-self:flex-end"><div class="h2">${won(tyo.price)}</div><div class="xs" style="color:var(--lime2)">5인분 이내</div></div></div>
+     <div class="perf" style="top:178px"></div><div class="notch" style="left:-12px;top:166px"></div><div class="notch" style="right:-12px;top:166px"></div>
+     <div class="hscroll" style="margin-top:40px;margin-left:-20px;margin-right:-20px;padding:0 20px">${HK.KITS.map(k=>`<button class="chip" style="height:30px;font-size:12px;font-weight:700;background:${k.code==='TYO'?'var(--lime)':'rgba(255,255,255,.1)'};color:${k.code==='TYO'?'var(--g)':'#fff'};border:0" data-go="K2?code=${k.code}">${S.stamps[k.code]?ic('check',12):''}${k.code}</button>`).join('')}</div>
+     <div class="mt16">${HK.btn('일본 키트 주문하기','data-act="quickTYO"','l')}</div></div>
+
+   <div class="card mt16 tap" data-go="C1?id=pakkapao" style="overflow:hidden">
      ${HK.photo('assets/img/pakkapao.jpg',160,0)}
      <div style="position:absolute;left:16px;top:58px">${HK.chick('bowl',108,'bob')}</div>
      <div style="position:absolute;right:16px;top:96px;color:var(--or)">${HK.stamp('BKK',{size:64,date:'NOV 26'})}</div>
@@ -87,13 +95,6 @@ SCR.home = { tab:'home',
      <div class="row g12 mt12"><span class="xs" style="font-weight:700;color:var(--g)">태국 레시피 1 / 3</span><div class="progress f1"><i style="width:33%"></i></div></div>
      <div class="mt16" data-go="C2?id=pakkapao">${HK.btn('요리 시작하기','','p')}</div></div></div>
 
-   <div class="ticket g mt16 tap" data-go="K2?code=TYO" style="padding:20px 20px 22px">
-     <div class="row sp"><span class="cap lime">다음 여행지 · 이번 주 추천</span><button class="xs" style="color:var(--lime);font-weight:700" data-go="K1">전체 보기</button></div>
-     <div class="row sp mt8"><div><div style="font-size:44px;font-weight:700;color:var(--lime);line-height:1.1">TYO</div><div class="bb mt8">일본 키트</div><div class="xs" style="color:var(--lime2)">${tyo.recipes.join(' · ')}</div></div>
-       <div style="text-align:right;align-self:flex-end"><div class="h2">${won(tyo.price)}</div><div class="xs" style="color:var(--lime2)">5인분 이내</div></div></div>
-     <div class="perf" style="top:178px"></div><div class="notch" style="left:-12px;top:166px"></div><div class="notch" style="right:-12px;top:166px"></div>
-     <div class="hscroll" style="margin-top:40px;margin-left:-20px;margin-right:-20px;padding:0 20px">${HK.KITS.map(k=>`<button class="chip" style="height:30px;font-size:12px;font-weight:700;background:${k.code==='TYO'?'var(--lime)':'rgba(255,255,255,.1)'};color:${k.code==='TYO'?'var(--g)':'#fff'};border:0" data-go="K2?code=${k.code}">${S.stamps[k.code]?ic('check',12):''}${k.code}</button>`).join('')}</div>
-     <div class="mt16">${HK.btn('일본 키트 주문하기','data-act="quickTYO"','l')}</div></div>
 
    <div class="card mt16 tap row g12" data-go="K6" style="padding:16px"><div class="ico" style="background:#FFF0E8;color:var(--or)">${ic('box')}</div><div class="f1"><div class="sb7">태국 소스가 거의 떨어졌어요</div><div class="xs">요리 3번 완료 · 피시소스 외 2가지 리필</div></div><span class="pill or">6,900원</span></div>
 
