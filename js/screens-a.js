@@ -42,7 +42,7 @@ SCR.A2c = onboard(3,'','요리를 끝내면\n그 나라 도장이 쾅','9개 나
 
 SCR.A3 = { render:()=>`<div class="scroll"><div class="top"></div><div class="pad">
    <div class="ticket g" style="padding:24px;height:300px"><div class="cap lime">BOARDING PASS</div>
-     <div class="row sp mt24"><div><div class="xs" style="color:var(--lime2)">FROM</div><div style="font-size:40px;font-weight:700">HOME</div></div>${ic('arrow',28)}<div style="text-align:right"><div class="xs" style="color:var(--lime2)">TO</div><div style="font-size:40px;font-weight:700;color:var(--lime)">BKK</div></div></div>
+     <div class="row sp mt24"><div><div class="xs" style="color:var(--lime2)">FROM</div><div style="font-size:28px;font-weight:700">HOME</div></div>${ic('arrow',28)}<div style="text-align:right"><div class="xs" style="color:var(--lime2)">TO</div><div style="font-size:28px;font-weight:700;color:var(--lime)">BKK</div></div></div>
      <div class="perf" style="top:190px"></div><div class="notch" style="left:-12px;top:178px"></div><div class="notch" style="right:-12px;top:178px"></div>
      <div class="row sp" style="margin-top:58px"><div><div class="xs" style="color:var(--lime2)">PASSENGER</div><div class="bb">이세라</div></div><div><div class="xs" style="color:var(--lime2)">SEAT</div><div class="bb">1인분</div></div><div><div class="xs" style="color:var(--lime2)">GATE</div><div class="bb">키트 QR</div></div></div></div>
    <div class="h1 mt32">키트 QR을 찍으면\n요리 여행이 시작돼요</div>
@@ -76,7 +76,7 @@ HK.ACT.toRecipeFirst = ()=>{ S.onboarded=true; HK.save(); HK.go('home',{},'root'
 /* ===== 02 홈 ===== */
 SCR.home = { tab:'home',
   render:()=>{ const cartN = S.cart.reduce((a,c)=>a+c.qty,0); const st = Object.keys(S.stamps).length; const tyo = HK.kit('TYO');
-  return `<div class="bar bg" style="height:132px;align-items:flex-start;padding-top:62px"><div style="padding-left:4px"><div class="s">세라님, 반가워요</div><div class="h1" style="font-size:26px">태국 여행 중이에요</div></div>
+  return `<div class="bar bg" style="height:132px;align-items:flex-start;padding-top:62px"><div style="padding-left:4px"><div class="s">세라님, 반가워요</div><div class="h1">태국 여행 중이에요</div></div>
      <div class="row g8"><button class="ib" data-go="K4" aria-label="장바구니">${ic('cart')}${cartN?`<span class="cnt">${cartN}</span>`:''}</button><button class="ib" data-act="noti" aria-label="알림">${ic('bell')}<span class="dot"></span></button></div></div>
    <div class="scroll" style="padding-bottom:120px"><div style="height:140px"></div><div class="pad">
    <div class="ticket g tap" data-go="K2?code=TYO" style="padding:20px 20px 22px">
@@ -131,7 +131,7 @@ function k1rows(cat){
   const asia=['BKK','TYO','SEL','CTU','HAN','DEL'], eu=['ROM','PAR'], hot=['BKK','CTU','DEL','MEX'];
   return HK.KITS.filter(k=>cat==='전체'||(cat==='아시아'&&asia.includes(k.code))||(cat==='유럽'&&eu.includes(k.code))||(cat==='베이킹'&&k.code==='PAR')||(cat==='매운맛'&&hot.includes(k.code))).map(k=>`
    <div class="card tap row g12 fade-up mt12" data-go="K2?code=${k.code}" style="padding:14px 16px;height:84px">
-    <div style="width:40px;text-align:center;color:${S.stamps[k.code]?'var(--or)':'var(--g)'}">${HK.lm(k.code,30)}<div class="cap" style="font-size:11px;color:inherit">${k.code}</div></div>
+    <div style="width:40px;text-align:center;color:${S.stamps[k.code]?'var(--or)':'var(--g)'}">${HK.lm(k.code,30)}<div class="cap" style="font-size:12px;color:inherit">${k.code}</div></div>
     <div class="f1"><div class="bb">${k.name}</div><div class="xs mt4">${k.sub}</div></div>
     <div style="text-align:right">${k.mine?`<div class="sb7" style="color:var(--or)">리필 6,900원</div><span class="pill or mt4">다 써 가요</span>`:`<div class="sb7">${won(k.price)}</div>${k.badge?`<span class="pill mt4">${k.badge}</span>`:''}`}</div></div>`).join('');
 }
@@ -187,7 +187,7 @@ SCR.K4 = { render:()=>{ const sum=S.cart.reduce((a,c)=>a+c.price*c.qty,0); const
   return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
   <div class="h1">장바구니</div>
   ${S.cart.length?`<div class="ticket mt16" style="padding:20px 20px 22px"><div class="cap">BOARDING PASS · ${S.cart.length}</div>
-   ${S.cart.map((c,i)=>{const k=HK.kit(c.code);return `<div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;text-align:center;color:var(--g)">${HK.lm(c.code,28)}<div class="cap" style="font-size:11px">${c.code}</div></div><div class="f1"><div class="sb7">${k.name} · ${c.method}</div><div class="xs">${c.opt||''}</div>
+   ${S.cart.map((c,i)=>{const k=HK.kit(c.code);return `<div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;text-align:center;color:var(--g)">${HK.lm(c.code,28)}<div class="cap" style="font-size:12px">${c.code}</div></div><div class="f1"><div class="sb7">${k.name} · ${c.method}</div><div class="xs">${c.opt||''}</div>
      <div class="row g8 mt8"><button class="ib" style="width:28px;height:28px" data-act="qty" data-i="${i}" data-d="-1">${ic('minus',14)}</button><span class="sb7">${c.qty}</span><button class="ib" style="width:28px;height:28px" data-act="qty" data-i="${i}" data-d="1">${ic('plus',14)}</button></div></div><div class="sb7">${won(c.price*c.qty)}</div></div>`;}).join('')}
    <div style="height:20px"></div><div class="div" style="border-top:1.5px dashed rgba(15,59,39,.18);background:none"></div>
    <div class="row sp mt16 s"><span>상품 금액</span><span style="color:var(--tx)">${won(sum)}</span></div><div class="row sp mt8 s"><span>배송비</span><span style="color:var(--tx)">${ship?won(ship):'무료'}</span></div><div class="xs">2만 원 이상 무료 배송</div>
@@ -265,7 +265,7 @@ SCR.B6C = { render:p=>{ const k=HK.kit(p.code||'PAR');
   return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
   <div class="h1">선물 받기</div>
   <div class="card mt16" style="padding:22px 24px"><div class="cap">GIFT · WORLD CHEF</div>
-   <div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;color:var(--g);text-align:center">${HK.lm(k.code,32)}<div class="cap" style="font-size:11px">${k.code}</div></div><div><div class="bb">${k.full}</div><div class="xs">${k.recipes.join(' · ')}</div><div class="xs">${k.tools.slice(0,3).join(' · ')}</div></div></div>
+   <div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;color:var(--g);text-align:center">${HK.lm(k.code,32)}<div class="cap" style="font-size:12px">${k.code}</div></div><div><div class="bb">${k.full}</div><div class="xs">${k.recipes.join(' · ')}</div><div class="xs">${k.tools.slice(0,3).join(' · ')}</div></div></div>
    <div class="div mt16"></div><div class="row sp mt16 s"><span>상품 금액</span><span style="color:var(--tx)">${won(k.price)}</span></div><div class="row sp mt8 s"><span>세계 셰프 선물</span><b style="color:var(--g)">-${won(k.price)}</b></div><div class="row sp mt8 s"><span>배송비</span><span style="color:var(--tx)">무료</span></div>
    <div class="div mt16"></div><div class="row sp mt16"><span class="s">결제 금액</span><span class="h2">0원</span></div></div>
   <div class="card mt16 row g12 tap" style="padding:14px 16px" data-act="addr"><div class="ico">${ic('pin')}</div><div class="f1"><div class="sb7">배송지</div><div class="xs">서울시 마포구 · 이세라</div></div>${ic('next',16)}</div>

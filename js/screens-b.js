@@ -45,7 +45,7 @@ SCR.CS = { cls:'white', render:p=>{ const r=R(p.id), i=+p.s||0, st=r.steps[i], n
   <div class="bar"><button class="ib ${last?'dark':''}" data-act="quitCook">${ic('close')}</button><div class="steps-bar" style="width:260px;margin-bottom:20px">${r.steps.map((_,k)=>`<i class="${k<=i?'on':''}" style="${last?'background:'+(k<=i?'var(--lime)':'rgba(255,255,255,.2)'):''}"></i>`).join('')}</div></div>
   <div class="scroll" style="color:${fg}" data-act="${st.timer?'':'tapNext'}"><div class="top"></div><div class="pad">
   <div class="cap ${last?'lime':''}">STEP ${i+1} / ${n}${last?' · LAST':''}</div>
-  <div class="h1 mt8" style="font-size:30px">${st.t.replace(/(\S+)(과|를|을)/, `<span style="color:${last?'var(--lime)':'var(--g)'}">$1</span>$2`)}</div>
+  <div class="h1 mt8">${st.t.replace(/(\S+)(과|를|을)/, `<span style="color:${last?'var(--lime)':'var(--g)'}">$1</span>$2`)}</div>
   <div class="b mt12 pre" style="color:${last?'var(--lime2)':'var(--tx2)'}">${st.d}</div>
   ${st.amt?`<span class="pill ${last?'lime':'soft'} mt16" style="height:32px;padding:0 12px">${ic('tag',14)} ${st.amt}</span>`:''}
   ${st.timer?`<div class="card ln mt24" style="padding:24px;text-align:center;background:#F7F9F7"><div class="timer" id="tm">${fmt(st.timer)}</div><div class="progress mt16"><i id="tmBar" style="width:0%"></i></div>

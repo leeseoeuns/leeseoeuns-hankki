@@ -62,7 +62,7 @@ img{display:block}
 .ib:active{transform:scale(.92)}
 .ib.dark{background:rgba(255,255,255,.14);border:0;color:#fff}
 .ib .dot{position:absolute;right:9px;top:9px;width:8px;height:8px;border-radius:4px;background:var(--or)}
-.ib .cnt{position:absolute;right:-2px;top:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--or);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+.ib .cnt{position:absolute;right:-2px;top:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--or);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 4px}
 svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* 글자 */
@@ -134,7 +134,7 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* 탭바 */
 .tabbar{position:absolute;left:24px;right:24px;bottom:24px;height:64px;border-radius:999px;background:#fff;box-shadow:0 8px 30px rgba(15,59,39,.12);display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:30}
-.tabbar button{height:48px;min-width:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;color:rgba(17,17,17,.45);font-size:14px;font-weight:700;transition:all var(--t) var(--easeOut);padding:0 12px}
+.tabbar button{height:48px;min-width:48px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;color:rgba(17,17,17,.45);font-size:12px;font-weight:700;transition:all var(--t) var(--easeOut);padding:0 12px}
 .tabbar button span{display:none}
 .tabbar button.on{background:var(--g);color:#fff;padding:0 16px}
 .tabbar button.on span{display:inline}
