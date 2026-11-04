@@ -143,7 +143,7 @@ SCR.K2 = { cls:'', render:p=>{ const k=HK.kit(p.code||'TYO'); const mine=k.mine;
   return `<div class="bar">${HK.backBtn(true)}<button class="ib dark" data-act="wish">${ic('heart')}</button></div>
    <div class="scroll" style="padding-bottom:120px">
    <div style="background:var(--g);color:#fff;padding:120px 24px 28px;position:relative;overflow:hidden">
-     <div style="position:absolute;right:-10px;top:40px;color:var(--lime);opacity:.18">${HK.lm(k.code,220)}</div>
+     <div class="wm" style="position:absolute;right:-10px;top:40px;color:var(--lime);opacity:.4">${HK.lm(k.code,220)}</div>
      <div class="cap lime">${k.city}</div><div style="font-size:44px;font-weight:700;color:var(--lime);line-height:1.1;margin-top:4px">${k.code}</div>
      <div class="h2 mt8">${k.full}</div><div class="xs mt4" style="color:var(--lime2)">${k.recipes.join(' · ')} · 5인분 이내</div>
      ${mine?`<span class="pill lime mt12">${ic('check',12)} 내 키트 · 도장 받음</span>`:''}
@@ -168,8 +168,7 @@ HK.ACT.openOptions = (t,e,codeArg)=>{
     sh.innerHTML = `<div class="grab"></div><div class="row sp"><div class="h2">${k.name} 키트 옵션</div><button class="ib" data-close style="width:36px;height:36px">${ic('close',18)}</button></div>
     <div class="sb7 mt16">받는 방법</div><div class="grid2 mt8">${methods.slice(0,2).map((m,i)=>`<button class="card ${o.method===i?'g':'ln'}" data-o="method" data-v="${i}" style="padding:14px;text-align:left"><div class="sb7">${m[0]}</div><div class="xs" style="${o.method===i?'color:var(--lime2)':''}">${m[1]}</div><div class="sb7 mt8" style="color:${o.method===i?'var(--lime)':'var(--g)'}">${won(m[2])}</div></button>`).join('')}</div>
     <div class="row sp mt24"><span class="sb7">맵기</span><span class="xs">고추는 따로 담아 드려요</span></div><div class="chips mt8">${['안 맵게','보통','맵게'].map((s,i)=>`<button class="chip ${o.spice===i?'on':''}" data-o="spice" data-v="${i}">${o.spice===i?ic('check',14):''}${s}</button>`).join('')}</div>
-    <div class="row sp mt24"><span class="sb7">빼고 싶은 재료 · 알레르기</span><span class="xs">빼면 대체 재료로 바꿔 넣어요</span></div><div class="chips mt8">${['땅콩','갑각류','생선','대두','밀','참깨','우유'].map(s=>`<button class="chip ${o.remove.includes(s)?'on':''}" data-o="remove" data-v="${s}">${o.remove.includes(s)?ic('check',14):''}${s}</button>`).join('')}</div>
-    <div class="sb7 mt24">싫어하는 재료</div><div class="chips mt8">${[...new Set(['고수','마늘','버섯','파',...o.dislike])].map(s=>`<button class="chip ${o.dislike.includes(s)?'on':''}" data-o="dislike" data-v="${s}">${o.dislike.includes(s)?ic('check',14):''}${s}</button>`).join('')}<button class="chip" data-o="custom">${ic('plus',14)}직접 입력</button></div>
+    <div class="row sp mt24"><span class="sb7">빼고 싶은 재료</span><span class="xs">빼면 대체 재료로 바꿔 넣어요</span></div><div class="chips mt8">${[...new Set(['땅콩','갑각류','생선','대두','밀','참깨','우유','고수','마늘','버섯','파',...o.remove])].map(s=>`<button class="chip ${o.remove.includes(s)?'on':''}" data-o="remove" data-v="${s}">${o.remove.includes(s)?ic('check',14):''}${s}</button>`).join('')}<button class="chip" data-o="custom">${ic('plus',14)}직접 입력</button></div>
     ${o.typing?`<div class="row g8 mt8"><input class="field f1" id="dIn" placeholder="예: 오이" style="height:44px;padding:0 14px" enterkeyhint="done"><button class="chip on" data-o="customOk" style="height:44px">추가</button></div>`:''}
     <div class="mt24">${HK.btn('장바구니 담기 · '+won(methods[o.method][2]),'data-o="add"','p')}</div>`;
   };
@@ -180,7 +179,7 @@ HK.ACT.openOptions = (t,e,codeArg)=>{
     }
     else if(key==='dislike'){ o.dislike = o.dislike.includes(v)?o.dislike.filter(x=>x!==v):[...o.dislike,v]; draw(sh); }
     else if(key==='custom'){ o.typing=!o.typing; draw(sh); const i=sh.querySelector('#dIn'); if(i){ i.focus(); i.addEventListener('keydown',e=>{ if(e.key==='Enter') sh.querySelector('[data-o="customOk"]').click(); }); } }
-    else if(key==='customOk'){ const i=sh.querySelector('#dIn'); const v=i?i.value.trim():''; if(v && !o.dislike.includes(v)) o.dislike.push(v); o.typing=false; draw(sh); }
+    else if(key==='customOk'){ const i=sh.querySelector('#dIn'); const v=i?i.value.trim():''; if(v && !o.remove.includes(v)) o.remove.push(v); o.typing=false; draw(sh); }
     else if(key==='add'){ const m=methods[o.method]; const ex=S.cart.find(c=>c.code===code&&c.method===m[0]); if(ex) ex.qty++; else S.cart.push({code,method:m[0],price:m[2],qty:1,opt:[['안 맵게','보통 맵기','맵게'][o.spice],...o.remove.map(r=>r+' 빼기'),...o.dislike.map(r=>r+' 빼기')].join(' · ')}); HK.save(); HK.closeOverlay(); HK.toast('장바구니에 담았어요','cart'); }
   }); }});
 };
