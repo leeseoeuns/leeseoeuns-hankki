@@ -39,7 +39,7 @@ img{display:block}
 .scr.dark{background:var(--g);color:#fff}
 .scr.white{background:#fff}
 .pad{padding:0 24px}
-.top{height:108px}
+.top{height:116px}
 .top-s{height:58px}
 
 /* 전환 */
@@ -66,7 +66,7 @@ img{display:block}
 svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* 글자 */
-.cap{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--g)}
+.cap{font-size:12px;font-weight:700;letter-spacing:.06em;line-height:1.4;color:var(--g)}
 .cap.or{color:var(--or)} .cap.lime{color:var(--lime)}
 .h1{font-size:28px;font-weight:700;line-height:1.3;white-space:pre-line}
 .h2{font-size:20px;font-weight:700;line-height:1.35;white-space:pre-line}
@@ -100,7 +100,9 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .btn.s{background:#fff;border:1px solid var(--ln);color:var(--g);justify-content:center}
 .btn.t{color:var(--g);justify-content:center;height:44px}
 .btn.or{background:var(--or);color:#fff;justify-content:center}
-.btn[disabled]{opacity:.35;pointer-events:none}
+.btn[disabled]{background:#E3E8E4;color:rgba(17,17,17,.35);border-color:transparent;pointer-events:none}
+.btn[disabled] *{color:inherit!important}
+.btn[disabled] .arr{background:rgba(17,17,17,.08);color:rgba(17,17,17,.35)}
 .btn .prog{position:absolute;inset:0;width:0;background:var(--lime);opacity:.35;pointer-events:none}
 .btn.l .prog{background:var(--g);opacity:.12}
 .btn>span{position:relative}
