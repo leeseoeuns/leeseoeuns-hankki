@@ -6,7 +6,7 @@ const HK = window.HK, S = HK.S, SCR = HK.SCREENS, ic = HK.ic, won = HK.won;
 SCR.A1 = { cls:'dark', darkBar:true,
   render:()=>`<div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center">
     <div>${HK.chick('main',150,'hop','margin:0 auto')}
-    <div class="h1 mt24" style="color:var(--lime);font-size:28px;letter-spacing:.1em">한 끼 여권</div>
+    <div class="mt24" style="display:flex;justify-content:center">${HK.wm(30,'var(--lime)')}</div>
     <div class="cap lime mt8" style="letter-spacing:.2em">ONE MEAL PASSPORT</div></div></div>
     <div class="xs" style="position:absolute;bottom:56px;left:0;right:0;text-align:center;color:rgba(255,255,255,.6)">요리 초보의 첫 세계 요리</div>`,
   mount:el=>HK.later(el,()=>HK.go('A2',{},'fade'),1400) };
