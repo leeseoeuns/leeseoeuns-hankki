@@ -93,7 +93,7 @@ SCR.C7 = { render:p=>{ const r=R(p.id); const k=HK.kit(r.code);
   <div class="pad mt24"><div class="cap">COMPLETE</div><div class="h1 mt4">${r.title} 완성!</div><div class="s">세라의 ${S.cooked}번째 요리 여행이에요</div>
   <div class="row g8 mt16">${[['18분','걸렸어요'],[r.fridge?'냉털':'1 / 3',r.fridge?'남은 재료로':k.name+' 레시피'],['5인분 중 2','키트 사용']].map(([a,b])=>`<div class="card f1" style="padding:12px 14px"><div class="bb">${a}</div><div class="xs">${b}</div></div>`).join('')}</div>
   <div class="card mt16" style="padding:4px 18px"><div class="lrow tap" data-tab="fridge"><span style="color:var(--g)">${ic('fridge')}</span><div class="f1"><div class="sb7">남은 재료로 냉털 레시피 보기</div><div class="xs">양배추 · 대파가 남았어요</div></div>${ic('next',16)}</div>
-  <div class="lrow tap" data-act="soon"><span style="color:var(--g)">${ic('bookmark')}</span><div class="f1"><div class="sb7">다음 레시피: 똠얌꿍</div><div class="xs">같은 키트로 바로 만들 수 있어요</div></div>${ic('next',16)}</div></div></div></div>
+  <div class="lrow tap" data-act="soon">${HK.photo('assets/img/tomyum.jpg',40,10,'width:40px;flex:none')}<div class="f1"><div class="sb7">다음 레시피: 똠얌꿍</div><div class="xs">같은 키트로 바로 만들 수 있어요</div></div>${ic('next',16)}</div></div></div></div>
   <div class="bot">${HK.btn('피드에 올리기',`data-go="E2A?id=${r.id}"`)}</div>`; } };
 
 SCR.G1 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
