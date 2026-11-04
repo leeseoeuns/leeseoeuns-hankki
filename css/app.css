@@ -251,3 +251,11 @@ textarea.field{resize:none;min-height:120px;line-height:1.5}
 .badge-new{position:absolute;right:12px;top:12px}
 .fab{position:absolute;right:24px;bottom:104px;height:50px;padding:0 18px;border-radius:999px;background:var(--lime);color:var(--g);font-size:16px;font-weight:700;display:flex;gap:6px;align-items:center;z-index:25;box-shadow:0 6px 20px rgba(15,59,39,.2)}
 .note{background:#FFF3EC;color:#A3431A;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5}
+
+/* 홈 티켓 넘기기 */
+.tk-car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-24px;padding-right:24px;scrollbar-width:none;overscroll-behavior-x:contain}
+.tk-car::-webkit-scrollbar{display:none}
+.tk-car>.ticket{flex:none;width:calc(100% - 24px);scroll-snap-align:start;scroll-snap-stop:always}
+.tk-dots{display:flex;justify-content:center;gap:6px;height:6px;margin-top:10px}
+.tk-dots i{width:6px;height:6px;border-radius:3px;background:var(--g);opacity:.2;transition:all .3s var(--easeOut)}
+.tk-dots i.on{width:18px;opacity:1}

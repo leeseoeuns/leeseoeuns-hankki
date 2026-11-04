@@ -74,23 +74,40 @@ HK.ACT.toHome = ()=>{ S.onboarded=true; HK.save(); HK.go('home',{},'root'); };
 HK.ACT.toRecipeFirst = ()=>{ S.onboarded=true; HK.save(); HK.go('home',{},'root'); setTimeout(()=>HK.go('B3',{code:'BKK'}),350); };
 
 /* ===== 02 홈 ===== */
+
+const HOME_TICKETS = [
+  { code:'BKK', go:'B3?code=BKK', cap:'지금 여행 중 · 태국', name:'태국 키트', recipes:'팟카파오 무 · 똠얌꿍 · 팟타이', right:'레시피 1 / 3',
+    chips:[['팟카파오 무','check'],['똠얌꿍',''],['팟타이','']], gate:'BKK', cta:'태국 레시피 보기', ctaAttr:'data-go="B3?code=BKK"' },
+  { code:'TYO', go:'K7', cap:'다음 여행 · 11월 5일 (목) 도착', name:'일본 키트', recipes:'오야코동 · 규동 · 미소시루', right:'배송 중',
+    chips:[['주문','check'],['출발','check'],['배송 중','on'],['도착','']], gate:'TYO', cta:'배송 조회', ctaAttr:'data-go="K7"' },
+  { code:'SEL', go:'K2?code=SEL', cap:'다음 여행지 · 이번 주 추천', seeAll:true, name:'한국 · 장 키트', recipes:'된장찌개 · 제육볶음 · 간장 달걀밥', right:'12,900원',
+    chips:'kits', gate:'SEL', cta:'한국 키트 주문하기', ctaAttr:'data-go="K2?code=SEL"' }
+];
+function homeTicket(t){
+  const chip=(label,st,go)=>`<button class="chip" style="height:28px;font-size:12px;font-weight:700;flex:none;border:0;background:${st==='on'?'var(--lime)':'rgba(255,255,255,.1)'};color:${st==='on'?'var(--g)':'#fff'}" ${go?`data-go="${go}"`:''}>${st==='check'?HK.ic('check',12):''}${label}</button>`;
+  const chips = t.chips==='kits' ? HK.KITS.map(k=>chip(k.code, k.code===t.code?'on':(S.stamps[k.code]?'check':''), 'K2?code='+k.code)).join('') : t.chips.map(([l,st])=>chip(l,st)).join('');
+  return `<div class="ticket g tap" data-go="${t.go}" style="height:464px;overflow:hidden">
+     <div class="wm" style="position:absolute;right:-18px;top:-8px;opacity:.4;color:var(--lime);pointer-events:none">${HK.lm(t.code,190)}</div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:24px"><span class="cap lime">${t.cap}</span>${t.seeAll?`<button class="cap row g4" style="color:var(--lime)" data-go="K1">전체 보기${HK.ic('next',12)}</button>`:''}</div>
+     <div style="position:absolute;left:21px;top:48px;font-size:64px;font-weight:700;color:var(--lime);line-height:1.1">${t.code}</div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:136px"><div class="h2">${t.name}</div><div class="h2">${t.right}</div></div>
+     <div class="s" style="position:absolute;left:24px;top:168px;color:var(--lime2)">${t.recipes}</div>
+     <div class="hscroll" style="position:absolute;left:0;right:0;top:214px;margin:0;padding:0 24px">${chips}</div>
+     <div class="perf" style="top:284px"></div><div class="notch" style="left:-12px;top:272px"></div><div class="notch" style="right:-12px;top:272px"></div>
+     ${[[24,'PASSENGER','이세라'],[134,'SEAT','5인분 이내'],[244,'GATE',t.gate]].map(([x,l,v])=>`<div style="position:absolute;left:${x}px;top:308px"><div class="xs" style="color:var(--lime2)">${l}</div><div class="bb" style="margin-top:3px">${v}</div></div>`).join('')}
+     <div style="position:absolute;left:24px;right:24px;top:384px">${HK.btn(t.cta,t.ctaAttr,'l')}</div></div>`;
+}
+HK.tkScroll = el => { const w = el.firstElementChild ? el.firstElementChild.offsetWidth + 10 : 1; const i = Math.round(el.scrollLeft / w); const d = el.nextElementSibling; if(d) [...d.children].forEach((x,k)=>x.classList.toggle('on', k===i)); };
+
 SCR.home = { tab:'home',
   render:()=>{ const cartN = S.cart.reduce((a,c)=>a+c.qty,0); const st = Object.keys(S.stamps).length; const tyo = HK.kit('TYO');
   return `<div class="bar bg" style="height:132px;align-items:flex-start;padding-top:62px"><div style="padding-left:4px"><div class="s">세라님, 반가워요</div><div class="h1">태국 여행 중이에요</div></div>
      <div class="row g8"><button class="ib" data-go="K4" aria-label="장바구니">${ic('cart')}${cartN?`<span class="cnt">${cartN}</span>`:''}</button><button class="ib" data-act="noti" aria-label="알림">${ic('bell')}<span class="dot"></span></button></div></div>
    <div class="scroll" style="padding-bottom:120px"><div style="height:152px"></div><div class="pad">
-   <div class="ticket g tap" data-go="K2?code=TYO" style="height:464px;overflow:hidden">
-     <div class="wm" style="position:absolute;right:-18px;top:-8px;opacity:.4;color:var(--lime);pointer-events:none">${HK.lm('TYO',190)}</div>
-     <div class="row sp" style="position:absolute;left:24px;right:24px;top:24px"><span class="cap lime">다음 여행지 · 이번 주 추천</span><button class="cap row g4" style="color:var(--lime)" data-go="K1">전체 보기${ic('next',12)}</button></div>
-     <div style="position:absolute;left:21px;top:48px;font-size:64px;font-weight:700;color:var(--lime);line-height:1.1">TYO</div>
-     <div class="row sp" style="position:absolute;left:24px;right:24px;top:136px"><div class="h2">일본 키트</div><div class="h2">${won(tyo.price)}</div></div>
-     <div class="s" style="position:absolute;left:24px;top:168px;color:var(--lime2)">${tyo.recipes.join(' · ')}</div>
-     <div class="hscroll" style="position:absolute;left:0;right:0;top:214px;margin:0;padding:0 24px">${HK.KITS.map(k=>`<button class="chip" style="height:28px;font-size:12px;font-weight:700;background:${k.code==='TYO'?'var(--lime)':'rgba(255,255,255,.1)'};color:${k.code==='TYO'?'var(--g)':'#fff'};border:0;flex:none" data-go="K2?code=${k.code}">${S.stamps[k.code]?ic('check',12):''}${k.code}</button>`).join('')}</div>
-     <div class="perf" style="top:284px"></div><div class="notch" style="left:-12px;top:272px"></div><div class="notch" style="right:-12px;top:272px"></div>
-     ${[[24,'PASSENGER','이세라'],[134,'SEAT','5인분 이내'],[244,'GATE','TYO']].map(([x,l,v])=>`<div style="position:absolute;left:${x}px;top:308px"><div class="xs" style="color:var(--lime2)">${l}</div><div class="bb" style="margin-top:3px">${v}</div></div>`).join('')}
-     <div style="position:absolute;left:24px;right:24px;top:384px">${HK.btn('일본 키트 주문하기','data-act="quickTYO"','l')}</div></div>
+   <div class="tk-car" onscroll="HK.tkScroll(this)">${HOME_TICKETS.map(tk=>homeTicket(tk)).join('')}</div>
+   <div class="tk-dots">${HOME_TICKETS.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>
 
-   <div class="card mt16 tap row g12" data-go="K6" style="padding:18px 16px;height:80px;gap:10px"><div class="ico" style="background:#FFF0E8;color:var(--or);width:44px;height:44px;flex:none">${ic('box')}</div><div class="f1" style="min-width:0"><div class="bb ellip" style="letter-spacing:-.03em">태국 소스가 거의 떨어졌어요</div><div class="xs ellip" style="margin-top:2px">요리 3번 완료 · 피시소스 외 2가지 리필</div></div><span class="pill or" style="height:33px;padding:0 10px;flex:none">6,900원</span></div>
+   <div class="card tap row g12" data-go="K6" style="margin-top:14px;padding:18px 16px;height:80px;gap:10px"><div class="ico" style="background:#FFF0E8;color:var(--or);width:44px;height:44px;flex:none">${ic('box')}</div><div class="f1" style="min-width:0"><div class="bb ellip" style="letter-spacing:-.03em">태국 소스가 거의 떨어졌어요</div><div class="xs ellip" style="margin-top:2px">요리 3번 완료 · 피시소스 외 2가지 리필</div></div><span class="pill or" style="height:33px;padding:0 10px;flex:none">6,900원</span></div>
 
    <div class="card mt16 tap" data-go="C1?id=pakkapao" style="overflow:hidden">
      ${HK.photo('assets/img/pakkapao.jpg',160,0)}
