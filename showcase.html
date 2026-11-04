@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>한 끼 여권 · 화면 쇼케이스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* 폰 틀은 가운데 고정, 화면이 왼쪽으로 흘러가며 폰 안을 지나가요 (?mode=phone, 기본)
+   카드가 가운데로 오면 커지는 캐러셀 (?mode=cards)
+   배경: ?bg=green(기본) / light */
+:root{--g:#0F3B27;--lime:#92FF5F;--sw:#F7F9F7;--ink:#111;--bg:var(--g);--fg:#fff;--sub:rgba(255,255,255,.55);--ease:cubic-bezier(.65,0,.35,1)}
+:root.light{--bg:#EEF1EE;--fg:var(--ink);--sub:rgba(17,17,17,.5)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:'Noto Sans KR',system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+.stage{position:relative;width:100%;height:100%;overflow:hidden;cursor:pointer;user-select:none}
+.card{position:absolute;left:50%;top:50%;width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2);border-radius:calc(var(--w)*.075);overflow:hidden;background:#fff;box-shadow:0 calc(var(--w)*.06) calc(var(--w)*.16) rgba(0,0,0,.18);transition:transform .9s var(--ease),opacity .9s var(--ease);will-change:transform}
+.card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.card.jump{transition:none}
+.frame{position:absolute;left:50%;top:50%;width:calc(var(--w) + var(--b)*2);height:calc(var(--h) + var(--b)*2);transform:translate(-50%,-50%);border:var(--b) solid #0B0F0D;border-radius:calc(var(--w)*.15);box-shadow:0 0 0 1.5px rgba(255,255,255,.08),0 calc(var(--w)*.1) calc(var(--w)*.3) rgba(0,0,0,.35);pointer-events:none;z-index:50}
+.frame:before{content:'';position:absolute;left:50%;top:calc(var(--w)*.03);width:28%;height:calc(var(--w)*.075);transform:translateX(-50%);background:#0B0F0D;border-radius:999px}
+.mode-cards .frame{display:none}
+.cap{position:absolute;left:0;right:0;bottom:max(24px,4vh);display:flex;justify-content:center;gap:10px;align-items:baseline;font-size:14px;z-index:60;pointer-events:none}
+.cap b{color:var(--lime);font-weight:700;letter-spacing:.06em}
+:root.light .cap b{color:var(--g)}
+.cap span{color:var(--sub)}
+.dots{display:flex;gap:6px;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(max(24px,4vh) + 30px);z-index:60}
+.dots i{width:6px;height:6px;border-radius:3px;background:var(--sub);opacity:.5;transition:all .5s var(--ease)}
+.dots i.on{width:22px;opacity:1;background:var(--lime)}
+:root.light .dots i.on{background:var(--g)}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" aria-label="한 끼 여권 앱 화면 쇼케이스. 누르면 다음 화면으로 넘어가요."></div>
+<script>
+(function(){
+  const q = new URLSearchParams(location.search);
+  const mode = q.get('mode')==='cards' ? 'cards' : 'phone';
+  if(q.get('bg')==='light') document.documentElement.classList.add('light');
+  document.body.classList.add('mode-'+mode);
+  const S = [
+    ['01-boarding','탑승권으로 시작'],['02-home','여행 티켓 홈'],['03-recipe','레시피'],['04-cooking','요리 모드 · 타이머'],
+    ['05-stamp','완성 · 도장'],['06-passport','요리 여권'],['07-fridge','냉털 코너'],['08-feed','요리 피드'],['09-kitchen','나의 주방']
+  ];
+  const N = S.length, stage = document.getElementById('stage');
+  let cur = 1, timer = null;
+  const cards = S.map(([f,l],i)=>{ const d=document.createElement('div'); d.className='card'; d.innerHTML=`<img src="assets/showcase/${f}.jpg" alt="${l}" ${i>3?'loading="lazy"':''}>`; stage.appendChild(d); return d; });
+  if(mode==='phone'){ const fr=document.createElement('div'); fr.className='frame'; stage.appendChild(fr); }
+  const cap=document.createElement('div'); cap.className='cap'; stage.appendChild(cap);
+  const dots=document.createElement('div'); dots.className='dots'; dots.innerHTML=S.map(()=>'<i></i>').join(''); stage.appendChild(dots);
+  function size(){
+    const vh = innerHeight, vw = innerWidth;
+    let h = Math.min(vh*0.72, 700); let w = h*402/874;
+    if(w > vw*0.42){ w = vw*0.42; h = w*874/402; }
+    stage.style.setProperty('--w', w+'px'); stage.style.setProperty('--h', h+'px'); stage.style.setProperty('--b', Math.max(6, w*0.035)+'px');
+    stage.dataset.step = (w + (mode==='cards'? w*0.12 : w*0.2));
+  }
+  const prev = new Array(N).fill(null);
+  function layout(anim){
+    const step = +stage.dataset.step;
+    cards.forEach((c,i)=>{
+      let o = ((i-cur)%N+N)%N; if(o > N/2) o -= N;          // -4 … 4
+      const jump = prev[i]!==null && Math.abs(o-prev[i])>1;    // 끝에서 반대편 끝으로 넘어가는 카드
+      c.classList.toggle('jump', !anim || jump);
+      const sc = mode==='cards' ? (o===0?1:0.82) : 1;
+      c.style.transform = `translateX(${o*step}px) scale(${sc})`;
+      c.style.opacity = Math.abs(o)>3 ? 0 : (mode==='cards' && o!==0 ? .75 : 1);
+      c.style.zIndex = 10 - Math.abs(o);
+      prev[i]=o;
+    });
+    cap.innerHTML = `<b>${String(cur+1).padStart(2,'0')} / ${String(N).padStart(2,'0')}</b><span>${S[cur][1]}</span>`;
+    [...dots.children].forEach((d,i)=>d.classList.toggle('on', i===cur));
+  }
+  function go(d){ cur = (cur+d+N)%N; layout(true); }
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(){ stop(); if(!reduce) timer = setInterval(()=>go(1), 2800); }
+  function stop(){ if(timer) clearInterval(timer); timer=null; }
+  stage.addEventListener('click', e=>{ go(e.clientX < innerWidth/2 ? -1 : 1); play(); });
+  addEventListener('keydown', e=>{ if(e.key==='ArrowRight'){go(1);play();} if(e.key==='ArrowLeft'){go(-1);play();} });
+  let sx=null; stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40){ go(dx<0?1:-1); play(); } sx=null; });
+  document.addEventListener('visibilitychange', ()=> document.hidden ? stop() : play());
+  addEventListener('resize', ()=>{ size(); layout(false); });
+  size(); layout(false); play();
+})();
+</script>
+</body>
+</html>
