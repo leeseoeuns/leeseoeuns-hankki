@@ -259,3 +259,7 @@ textarea.field{resize:none;min-height:120px;line-height:1.5}
 .tk-dots{display:flex;justify-content:center;gap:6px;height:6px;margin-top:10px}
 .tk-dots i{width:6px;height:6px;border-radius:3px;background:var(--g);opacity:.2;transition:all .3s var(--easeOut)}
 .tk-dots i.on{width:18px;opacity:1}
+/* 도장 v4 · 수저 뽀뽀 + 나라 이름 (11/9) */
+.stamp.v4{display:block}
+.stamp.v4 svg{position:absolute;inset:0;width:100%;height:100%}
+.stamp.v4 .nm{position:absolute;left:0;right:0;top:53.6%;transform:translateY(-50%);font-weight:700;letter-spacing:.08em;line-height:1;text-align:center;white-space:nowrap}
