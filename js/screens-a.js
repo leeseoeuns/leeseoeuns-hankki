@@ -37,8 +37,8 @@ SCR.A2c = onboard(3,'','요리를 끝내면\n그 나라 도장이 쾅','9개 나
  `<div class="card" style="height:100%;padding:20px;position:relative;overflow:hidden"><div class="cap">MY PASSPORT</div><div class="h2 mt4">세라의 요리 여권</div>
    <div class="row g8 mt16">${HK.stamp('THA',{size:76,date:'03 NOV 26'})}${HK.stamp('JPN',{size:70,date:'12 NOV 26',rot:6})}</div>
    <div class="row g8 mt8">${HK.stamp('KOR',{empty:true,size:60})}${HK.stamp('ITA',{empty:true,size:60})}</div>
-   <span class="pill or" style="position:absolute;left:20px;bottom:20px">${ic('gift',14)} 9개국 완성하면 키트 1개 선물</span>
-   <div style="position:absolute;right:12px;bottom:12px">${HK.chick('trophy',130,'hop')}</div></div>`,'A3',true);
+   <span class="pill or" style="position:absolute;left:20px;top:248px">${ic('gift',14)} 9개국 완성하면 키트 1개 선물</span>
+   <div style="position:absolute;right:12px;bottom:58px">${HK.chick('trophy',130,'hop')}</div></div>`,'A3',true);
 
 SCR.A3 = { render:()=>`<div class="scroll"><div class="top"></div><div class="pad">
    <div class="ticket g" style="padding:24px;height:240px"><div class="cap lime">BOARDING PASS</div>
