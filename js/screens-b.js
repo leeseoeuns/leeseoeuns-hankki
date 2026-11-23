@@ -5,7 +5,7 @@ const R = id => HK.RECIPES[id] || HK.RECIPES.pakkapao;
 
 /* ===== 05 레시피 ===== */
 SCR.C1 = { render:p=>{ const r=R(p.id); const saved=S.saved.includes(r.id);
-  return `<div class="bar">${HK.backBtn(true)}<div class="row g8"><button class="ib dark" data-act="share">${ic('share')}</button><button class="ib dark" data-act="saveR" data-id="${r.id}" style="${saved?'color:var(--lime)':''}">${ic('bookmark')}</button></div></div>
+  return `<div class="bar">${HK.backBtn(true)}<div class="row g8"><button class="ib dark" data-act="share">${ic('share')}</button><button class="ib dark" data-act="saveR" data-id="${r.id}" style="${saved?'color:var(--or)':''}">${ic('bookmark')}</button></div></div>
   <div class="scroll" style="padding-bottom:120px">${HK.photo(r.img,280,0)}
   <div class="pad" style="margin-top:-28px;position:relative"><div class="card" style="padding:22px 22px 20px">
     <div class="cap or">${r.fridge?'냉털 레시피':'THAILAND · THA'}</div><div class="h1 mt4">${r.title}</div><div class="s">${r.sub}</div>
@@ -15,7 +15,7 @@ SCR.C1 = { render:p=>{ const r=R(p.id); const saved=S.saved.includes(r.id);
   <div class="h2 mt24">순서 ${r.steps.length}단계</div>${r.steps.map((s,i)=>`<div class="row g12 mt12" style="align-items:flex-start"><span class="pill" style="width:26px;justify-content:center;padding:0">${i+1}</span><div class="f1"><div class="sb7">${s.t.replace('\n',' ')}</div><div class="xs">${s.amt}</div></div></div>`).join('')}
   <div style="display:flex;justify-content:flex-end">${HK.chick('recipe',96,'bob')}</div></div></div>
   <div class="bot dock">${HK.btn('요리 시작하기',`data-go="C2?id=${r.id}"`)}<button class="link" style="margin-top:8px" data-act="toMemo" data-id="${r.id}">장보기 메모에 담기</button></div>`; } };
-HK.ACT.saveR = t=>{ const id=t.dataset.id; const had=S.saved.includes(id); S.saved = had?S.saved.filter(x=>x!==id):[...S.saved,id]; HK.save(); t.style.color=had?'':'var(--lime)'; HK.toast(had?'저장을 취소했어요':'저장한 레시피에 담았어요','bookmark'); };
+HK.ACT.saveR = t=>{ const id=t.dataset.id; const had=S.saved.includes(id); S.saved = had?S.saved.filter(x=>x!==id):[...S.saved,id]; HK.save(); t.style.color=had?'':'var(--or)'; HK.toast(had?'저장을 취소했어요':'저장한 레시피에 담았어요','bookmark'); };
 HK.ACT.share = ()=>HK.sheet(`<div class="h2">공유하기</div><div class="card ln row g12 mt16" style="padding:12px">${HK.photo('assets/img/pakkapao.jpg',56,12,'width:56px;flex:none')}<div><div class="sb7">팟카파오 무 레시피</div><div class="xs">한 끼 여권 · 15분 · 쉬움</div></div></div><div class="row mt16" style="justify-content:space-around">${[['link','링크 복사'],['comment','메시지'],['image','이미지 저장'],['more','더 보기']].map(([i,l])=>`<button style="text-align:center" data-act="copied"><div class="ico" style="margin:0 auto;border-radius:24px;width:48px;height:48px">${ic(i==='link'?'share':i)}</div><div class="xs mt4">${l}</div></button>`).join('')}</div>`);
 HK.ACT.copied = ()=>{ HK.closeOverlay(); HK.toast('링크를 복사했어요','check'); };
 HK.ACT.pinch = ()=>HK.modal(`${HK.chick('taste',90,'bob','margin:-70px 0 0')}<div class="h2 mt8">한 꼬집은 이만큼!</div><div class="s mt8">100원 동전을 얇게 덮는 양이에요 (약 0.5g)</div>
