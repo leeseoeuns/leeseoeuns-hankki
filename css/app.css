@@ -1,6 +1,9 @@
 /* 메인 서체 GS 혜자로운 — 파일을 올리지 않고 설치된 컴퓨터에서만 불러옴 (없으면 Noto Sans KR) */
 @font-face{font-family:'HK Title';src:local('GS HYEJAROUN Bold'),local('GSHYEJAROUN-Bold'),local('GS HYEJAROUN'),local('GSHyejaroun-Bold'),local('GS혜자로운체'),local('GS혜자로운');font-weight:700}
 .gs{font-family:'HK Title','Noto Sans KR',system-ui,sans-serif;font-weight:700;letter-spacing:0}
+/* 큰 나라 코드: 캡션(24px)과 첫 글자 왼쪽 획을 눈으로 맞춤. GS 혜자로운 21px(Figma 기준), 대체 서체(Noto Sans KR) 23px */
+.tk-code{left:23px}
+.has-gs .tk-code{left:21px}
 :root{
   --lime:#92FF5F; --g:#0F3B27; --or:#FF7036; --sw:#F7F9F7; --wh:#fff; --bk:#111;
   --gray:#EBEBEB; --tx:#111; --tx2:rgba(17,17,17,.55); --tx3:rgba(17,17,17,.35);

@@ -89,10 +89,10 @@ function homeTicket(t){
   return `<div class="ticket g tap" data-go="${t.go}" style="height:464px;overflow:hidden">
      <div class="wm" style="position:absolute;right:-18px;top:-8px;opacity:.4;color:var(--lime);pointer-events:none">${HK.lm(t.code,190)}</div>
      <div class="row sp" style="position:absolute;left:24px;right:24px;top:24px"><span class="cap lime">${t.cap}</span>${t.seeAll?`<button class="cap row g4" style="color:var(--lime)" data-go="K1">전체 보기${HK.ic('next',12)}</button>`:''}</div>
-     <div class="gs" style="position:absolute;left:21px;top:48px;font-size:64px;font-weight:700;color:var(--lime);line-height:1.1">${t.code}</div>
-     <div class="row sp" style="position:absolute;left:24px;right:24px;top:136px"><div class="h2">${t.name}</div><div class="h2">${t.right}</div></div>
-     <div class="s" style="position:absolute;left:24px;top:168px;color:var(--lime2)">${t.recipes}</div>
-     <div class="hscroll" style="position:absolute;left:0;right:0;top:214px;margin:0;padding:0 24px">${chips}</div>
+     <div class="gs tk-code" style="position:absolute;top:48px;font-size:64px;font-weight:700;color:var(--lime);line-height:1.1">${t.code}</div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:150px;align-items:baseline"><div class="h2">${t.name}</div><div style="font-size:14px;font-weight:700;color:var(--lime2);flex:none">${t.right}</div></div>
+     <div class="s" style="position:absolute;left:24px;top:182px;color:var(--lime2)">${t.recipes}</div>
+     <div class="hscroll" style="position:absolute;left:0;right:0;top:230px;margin:0;padding:0 24px">${chips}</div>
      <div class="perf" style="top:284px"></div><div class="notch" style="left:-12px;top:272px"></div><div class="notch" style="right:-12px;top:272px"></div>
      ${[[24,'PASSENGER','이세라'],[134,'SEAT','5인분 이내'],[244,'GATE',t.gate]].map(([x,l,v])=>`<div style="position:absolute;left:${x}px;top:308px"><div class="xs" style="color:var(--lime2)">${l}</div><div class="bb" style="margin-top:3px">${v}</div></div>`).join('')}
      <div style="position:absolute;left:24px;right:24px;top:384px">${HK.btn(t.cta,t.ctaAttr,'l')}</div></div>`;
