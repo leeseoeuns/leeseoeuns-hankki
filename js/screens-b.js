@@ -31,7 +31,7 @@ HK.ACT.memoAdd = t=>{ const r=R(t.dataset.id); document.querySelectorAll('#memoP
 
 /* ===== 06 요리 모드 ===== */
 SCR.C2 = { cls:'white', render:p=>{ const r=R(p.id); const prep=r.prep||[['재료 꺼내 두기','필요한 재료를 한곳에 모아요'],['칼 · 도마 · 팬 꺼내기',''],['밥 데우기','전자레인지 2분']];
-  return `<div class="bar" style="background:#fff">${HK.backBtn(false,'close')}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn(false,'close')}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
   <div class="cap">READY · 요리 전 준비</div><div class="h1 mt4">먼저 재료를\n꺼내 둘까요?</div><div class="s mt8">꺼내 두면 요리하다 멈추지 않아요</div>
   <div class="mt16" id="prep">${prep.map(([t,s,a],i)=>`<div class="lrow tap" data-act="prepT"><span class="check ${i===0?'on':''}">${ic('check')}</span><div class="f1"><div class="sb7">${t}</div>${s?`<div class="xs" ${a==='thaw'?'style="color:var(--or);font-weight:700" data-go="G1"':''}>${s}</div>`:''}</div></div>`).join('')}</div>
   <div class="row sp mt16"><span class="xs" id="prepN" style="font-weight:700;color:var(--g)">1 / ${prep.length} 준비됨</span>${HK.chick('knife',110,'bob')}</div></div></div>
@@ -96,7 +96,7 @@ SCR.C7 = { render:p=>{ const r=R(p.id); const k=HK.kit(r.code);
   <div class="lrow tap" data-act="soon">${HK.photo('assets/img/tomyum.jpg',40,10,'width:40px;flex:none')}<div class="f1"><div class="sb7">다음 레시피: 똠얌꿍</div><div class="xs">같은 키트로 바로 만들 수 있어요</div></div>${ic('next',16)}</div></div></div></div>
   <div class="bot">${HK.btn('피드에 올리기',`data-go="E2A?id=${r.id}"`)}</div>`; } };
 
-SCR.G1 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
+SCR.G1 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
   <div class="cap or">BEGINNER GUIDE</div><div class="h1 mt4">얼어 있는 고기,\n이렇게 녹여요</div><div class="s mt8">키트 가이드북에도 같은 내용이 들어 있어요</div>
   ${[['냉장 해동','요리 전날 밤 냉장실로 옮겨 두기','8–12시간 · 가장 안전해요'],['찬물 해동','지퍼백에 담아 찬물에 담그기','30분–1시간 · 물은 30분마다 갈기'],['전자레인지','해동 모드로 조금씩 나눠 돌리기','3–5분 · 바로 요리하기']].map(([a,b,c],i)=>`<div class="card mt12 row g12" style="padding:16px 18px;align-items:flex-start"><span class="pill" style="width:26px;justify-content:center;padding:0">${i+1}</span><div><div class="sb7">${a}</div><div class="s">${b}</div><div class="xs" style="color:var(--g);font-weight:700">${c}</div></div></div>`).join('')}
   <div class="note mt16"><b>하지 마세요</b> · 실온에 오래 두거나, 녹인 고기를 다시 얼리기</div>
@@ -123,9 +123,9 @@ document.addEventListener('keydown',e=>{ if(e.key!=='Enter') return; if(e.target
 
 SCR.D2 = { render:()=>{ const sel=S.fridge;
   const res = HK.FRIDGE_RECIPES.map(id=>{const r=HK.RECIPES[id]; const have=r.need.filter(n=>sel.includes(n)); return {r,have,miss:r.need.filter(n=>!sel.includes(n))};}).filter(x=>x.have.length).sort((a,b)=>a.miss.length-b.miss.length||b.have.length-a.have.length);
-  if(!res.length) return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="pad" style="padding-top:180px;text-align:center">${HK.chick('curious',130,'sway','margin:0 auto')}<div class="h2 mt16">이 재료로는 아직 못 찾았어요</div><div class="s mt8">양배추 · 대파 · 달걀 · 참치캔 중에서 골라 보세요</div><div class="mt24">${HK.btn('재료 다시 고르기','data-back','o',false)}</div></div>`;
+  if(!res.length) return `<div class="bar">${HK.backBtn()}<span></span></div><div class="pad" style="padding-top:180px;text-align:center">${HK.chick('curious',130,'sway','margin:0 auto')}<div class="h2 mt16">이 재료로는 아직 못 찾았어요</div><div class="s mt8">양배추 · 대파 · 달걀 · 참치캔 중에서 골라 보세요</div><div class="mt24">${HK.btn('재료 다시 고르기','data-back','o',false)}</div></div>`;
   const best=res[0], rest=res.slice(1);
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
   <div class="cap">${sel.join(' · ')}</div><div class="h1 mt4">이걸로 만들 수 있어요</div>
   <div class="ticket g mt16 tap" data-go="C1?id=${best.r.id}" style="padding:20px"><div class="row g16" style="gap:16px">${HK.photo(best.r.img,96,16,'width:96px;flex:none')}<div><div class="cap lime">${best.miss.length?'거의 다 있어요':'BEST MATCH'}</div><div class="h2 mt4">${best.r.title}</div><div class="xs" style="color:var(--lime2)">${best.r.time} · ${best.r.level}</div><span class="pill lime mt8">있는 재료 ${best.have.length} / ${best.r.need.length}</span></div></div>
    <div class="perf" style="top:150px"></div><div class="notch" style="left:-12px;top:138px"></div><div class="notch" style="right:-12px;top:138px"></div><div class="sb7" style="margin-top:44px">${best.miss.length?best.miss.join(' · ')+'만 있으면 바로 만들 수 있어요':'냉장고 재료만으로 바로 만들 수 있어요'}</div></div>
@@ -156,7 +156,7 @@ HK.ACT.upload = ()=>HK.sheet(`<div class="h2">무엇을 올릴까요?</div>
 HK.ACT.upGo = t=>{ HK.closeOverlay(); setTimeout(()=>HK.go(t.dataset.to),200); };
 
 SCR.E1D = { render:p=>{ const x=allPosts().find(y=>y.id===p.id)||HK.POSTS[0]; const pp=HK.PEOPLE[x.who]||{}; const liked=S.liked.includes(x.id); const cm=[...(x.who==='minji'?[['sera','이거 어떻게 만들었어요? 레시피 공유해 주세요!'],['minji','바질 대신 깻잎 넣어도 맛있어요']]:[]),...(S.comments[x.id]||[]).map(c=>['sera',c])];
-  return `<div class="bar bg">${HK.backBtn()}<button class="ib" data-act="more">${ic('more')}</button></div><div class="scroll" style="padding-bottom:100px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<button class="ib" data-act="more">${ic('more')}</button></div><div class="scroll" style="padding-bottom:100px"><div class="top"></div><div class="pad">
   <div class="row g12">${HK.avatar(x.who,44)}<div class="f1 tap" ${x.who==='minji'?'data-go="CP"':''}><div class="sb7">${pp.name}</div><div class="xs">${pp.lv}</div></div>${x.who!=='sera'?`<button class="chip ${S.follows.includes(x.who)?'on':''}" data-act="follow" data-w="${x.who}" style="height:34px">${S.follows.includes(x.who)?ic('check',14)+'동행 중':ic('plus',14)+'동행하기'}</button>`:''}</div>
   <div class="mt16">${HK.photo(x.img,300)}</div>
   <div class="h2 mt16">${x.title}</div><div class="b mt8 pre">${x.body}</div><div class="row g8 wrap mt8">${(x.tags||[]).map(t=>`<span class="xs" style="color:var(--g);font-weight:700">${t}</span>`).join('')}</div>
@@ -213,7 +213,7 @@ SCR.kitchen = { tab:'kitchen', render:()=>{ const memoN=S.memo.filter(m=>!m.done
   <div class="row mt16" style="justify-content:flex-end">${HK.chick('cook',100,'bob')}</div></div></div>`; } };
 
 SCR.E4 = { render:()=>{ const days=['일','월','화','수','목','금','토'];
-  return `<div class="bar bg">${HK.backBtn()}<button class="ib" data-act="memoSet">${ic('calendar')}</button></div><div class="scroll" style="padding-bottom:40px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<button class="ib" data-act="memoSet">${ic('calendar')}</button></div><div class="scroll" style="padding-bottom:40px"><div class="top"></div><div class="pad">
   <div class="row sp" style="align-items:flex-end"><div class="h1">장보기 메모</div><div style="margin-top:-30px">${HK.chick('basket',76,'bob')}</div></div>
   <div class="card mt8" style="padding:16px"><div class="row sp"><span class="bb">2026년 11월</span><span class="row g8" style="color:var(--g)">${ic('back',18)}${ic('next',18)}</span></div>
    <div class="cal mt12">${days.map((d,i)=>`<span class="hd ${i===0?'sun':''}">${d}</span>`).join('')}${Array.from({length:30},(_,i)=>{const d=i+1;const dow=(d-1)%7;return `<span class="${dow===0?'sun':''} ${d===4?'today':''} ${d===6?'mk':''} ${[13,20].includes(d)?'dotm':''}">${d}</span>`;}).join('')}</div></div>
@@ -227,23 +227,23 @@ HK.ACT.memoNewOk = ()=>{ const i=HK.$('#mIn'); const v=i?i.value.trim():''; if(!
 HK.ACT.memoClear = ()=>{ S.memo=S.memo.filter(m=>!m.done); HK.save(); HK.rerender(); HK.toast('다 산 재료를 지웠어요','trash'); };
 HK.ACT.memoSet = ()=>HK.sheet(`<div class="h2">장 보는 날</div><div class="s mt4">알림을 보내 드릴게요</div><div class="chips mt16">${['일','월','화','수','목','금','토'].map(d=>`<button class="chip ${d==='금'?'on':''}" data-act="tgl">${d}</button>`).join('')}</div><div class="row sp mt16"><span class="sb7">매주 반복</span><span class="pill">켜짐</span></div><div class="row sp mt12"><span class="sb7">알림 시간</span><span class="sb7" style="color:var(--g)">오전 10:00</span></div><div class="mt24">${HK.btn('저장하기','data-close')}</div>`);
 
-SCR.E5 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">저장한 레시피</div>
+SCR.E5 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">저장한 레시피</div>
   ${S.saved.length?S.saved.map((id,i)=>{const r=R(id);return `<div class="card row g12 tap" style="margin-top:${i?12:16}px;padding:12px 16px" data-go="C1?id=${id}">${HK.photo(r.img,60,12,'width:60px;flex:none')}<div class="f1"><div class="sb7">${r.title}</div><div class="xs">${r.time} · ${r.level}</div></div>${ic('next',16)}</div>`;}).join(''):`<div class="s mt16">아직 저장한 레시피가 없어요</div>`}</div></div>` };
-SCR.E6 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">세라의 요리 일지</div>
+SCR.E6 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">세라의 요리 일지</div>
   <div class="grid2 mt16">${[...S.myPosts,HK.POSTS[1]].map(x=>`<div class="card tap" style="overflow:hidden" data-go="E1D?id=${x.id}">${HK.photo(x.img,126,0)}<div style="padding:10px 12px"><div class="sb7 ellip">${x.title}</div><div class="xs">${x.code}</div></div></div>`).join('')}</div></div></div>` };
-SCR.E7 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">동행 셰프</div><div class="s mt4">"동행"한 셰프의 새 요리와 레시피가 피드 맨 위에 떠요</div>
+SCR.E7 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">동행 셰프</div><div class="s mt4">"동행"한 셰프의 새 요리와 레시피가 피드 맨 위에 떠요</div>
   ${['minji','bread','self3','fridgeking'].map(w=>{const pp=HK.PEOPLE[w];const on=S.follows.includes(w);return `<div class="card mt12 row g12" style="padding:14px 16px"><div class="tap" ${w==='minji'?'data-go="CP"':''}>${HK.avatar(w,48)}</div><div class="f1"><div class="sb7">${pp.name}</div><div class="xs">${pp.lv}</div></div><button class="chip ${on?'':'on'}" data-act="follow" data-w="${w}" style="height:34px">${on?ic('check',14)+'동행 중':ic('plus',14)+'동행하기'}</button></div>`;}).join('')}
   <div class="h2 mt32">이런 셰프는 어때요?</div>
   <div class="card g mt12 row g12" style="padding:16px">${HK.avatar('halmoni',52)}<div class="f1"><div class="sb7">방콕 할머니 손맛</div><div class="xs" style="color:var(--lime2)">세계 셰프 · #태국 #정통</div></div><button class="chip ${S.follows.includes('halmoni')?'':''}" style="height:34px;background:var(--lime);border:0;color:var(--g);font-weight:700" data-act="follow" data-w="halmoni">${S.follows.includes('halmoni')?ic('check',14)+'동행 중':ic('plus',14)+'동행하기'}</button></div>
   <div class="xs mt16">동행 = 구독. 여행을 함께 떠나는 사람이라는 뜻이에요</div></div></div>` };
 SCR.CP = { render:()=>{ const pp=HK.PEOPLE.minji; const on=S.follows.includes('minji');
-  return `<div class="bar bg">${HK.backBtn()}<button class="ib" data-act="more">${ic('more')}</button></div><div class="scroll"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<button class="ib" data-act="more">${ic('more')}</button></div><div class="scroll"><div class="top"></div><div class="pad">
   <div class="card g" style="padding:20px"><div class="row g16" style="gap:16px">${HK.avatar('minji',64)}<div><div class="h2">${pp.name}</div><span class="pill lime mt4">LV.2 ${pp.lv}</span></div></div>
    <div class="row mt16" style="justify-content:space-between">${[['요리',pp.cook+'번'],['도장',pp.stamps+' / 9'],['동행',pp.follow+'명']].map(([a,b])=>`<div><div class="xs" style="color:var(--lime2)">${a}</div><div class="bb">${b}</div></div>`).join('')}</div></div>
   <button class="btn ${on?'s':'p'} mt12" style="justify-content:center" data-act="follow" data-w="minji">${on?ic('check',16)+' 동행 중':ic('plus',16)+' 동행하기'}</button>
   <div class="seg mt24"><button>요리 18</button><button class="on">레시피 13</button></div>
   ${[['pakkapao','THA · 15분 · 4단계',128],['','THA · 10분 · 3단계',96,'10분 똠얌 라면','assets/img/tomyum-ramen.jpg'],['','KOR · 10분 · 3단계',74,'간장 달걀밥 업그레이드','assets/img/soy-egg-rice.jpg']].map(([id,s,l,t,im])=>`<div class="card mt12 row g12 tap" style="padding:12px 16px" ${id?`data-go="C1?id=${id}"`:'data-act="soon"'}>${HK.photo(id?R(id).img:im,60,12,'width:60px;flex:none')}<div class="f1"><div class="sb7">${t||R(id).title}</div><div class="xs">${s}</div><div class="xs row g4" style="color:var(--or);font-weight:700">${ic('heart',12)}${l}</div></div></div>`).join('')}<div style="height:40px"></div></div></div>`; } };
-SCR.SET = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">설정</div>
+SCR.SET = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad"><div class="h1">설정</div>
   <div class="card" style="margin-top:18px;padding:4px 18px">${['내 입맛 (맵기 · 빼는 재료)','배송지 관리','알림','결제 수단'].map(s=>`<div class="lrow"><span class="sb7 f1">${s}</span>${ic('next',16)}</div>`).join('')}</div>
   <div class="card mt16" style="padding:4px 18px"><div class="lrow tap" data-act="resetAll"><span class="sb7 f1" style="color:var(--or)">체험 처음부터 다시 하기</span>${ic('refresh',16)}</div></div></div></div>` };
 HK.ACT.resetAll = ()=>HK.reset();

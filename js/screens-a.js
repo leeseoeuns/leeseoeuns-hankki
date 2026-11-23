@@ -141,7 +141,7 @@ HK.ACT.notiGo = t=>{ const to=t.dataset.to; HK.closeOverlay(); setTimeout(()=>{ 
 
 /* ===== 03 키트 주문 ===== */
 SCR.K1 = { render:()=>{ const n=S.cart.reduce((a,c)=>a+c.qty,0), sum=S.cart.reduce((a,c)=>a+c.price*c.qty,0);
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
    <div class="h1">어디로\n떠나 볼까요?</div>
    <div class="hscroll" style="margin-top:24px">${['전체','아시아','유럽','아메리카','중동'].map((c,i)=>`<button class="chip ${i?'':'on'}" data-act="k1cat" data-c="${c}">${i?'':ic('check',14)}${c}</button>`).join('')}</div>
    <div style="margin-top:20px" id="k1list">${k1rows('전체')}</div></div></div>
@@ -204,7 +204,7 @@ HK.ACT.openOptions = (t,e,codeArg)=>{
 };
 
 SCR.K4 = { render:()=>{ const sum=S.cart.reduce((a,c)=>a+c.price*c.qty,0); const ship=sum>=20000||!sum?0:3000;
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
   <div class="h1">장바구니</div>
   ${S.cart.length?`<div class="ticket" style="margin-top:20px;padding:20px 20px 22px"><div class="cap">BOARDING PASS · ${S.cart.length}</div>
    ${S.cart.map((c,i)=>{const k=HK.kit(c.code);return `<div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;text-align:center;color:var(--g)">${HK.lm(c.code,28)}<div class="cap" style="font-size:12px">${c.code}</div></div><div class="f1"><div class="sb7">${k.name} · ${c.method}</div><div class="xs">${c.opt||''}</div>
@@ -229,14 +229,14 @@ SCR.K5 = { cls:'dark', darkBar:true, render:()=>{ const o=HK.lastOrder||[{code:'
    <div class="sb7" style="color:var(--g)">도착하면 여권 카드 QR을 찍어 주세요</div></div></div></div>
   <div class="bot">${HK.btn('주문 내역 보기','data-go="K7"','l')}<button class="link" data-act="toHome">홈으로</button></div>`; } };
 
-SCR.K6 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
+SCR.K6 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:120px"><div class="top"></div><div class="pad">
   <div class="cap or">REFILL · THA</div><div class="h1 mt4">다 쓴 것만\n조금씩 다시 채워요</div><div class="s" style="margin-top:10px">요리 3번을 했어요. 많이 쓴 재료를 먼저 골라 뒀어요.</div>
   <div class="card mt16" style="padding:4px 18px" id="refill">${[['피시소스 30ml','다 썼어요',2900,1],['굴소스 30g','다 썼어요',2400,1],['타이 고추 2g','조금 남았어요',1600,1],['똠얌 페이스트 40g','넉넉해요',2400,0],['타마린드 30g','넉넉해요',1800,0],['팜슈거 20g','넉넉해요',1200,0],['건조 홀리바질 2g','조금 남았어요',1500,0]].map(([n,s,p,on],i)=>`<div class="lrow tap" data-act="refillT" data-p="${p}"><span class="check ${on?'on':''}">${ic('check')}</span><div class="f1"><div class="sb7">${n}</div><div class="xs" style="${s==='다 썼어요'?'color:var(--or)':''}">${s}</div></div><span class="sb7">${won(p)}</span></div>`).join('')}</div></div></div>
   <div class="bot dock"><div class="row g12"><div style="width:100px"><div class="xs" id="rcnt">3가지 선택</div><div class="h2" id="rsum">6,900원</div></div><div class="f1">${HK.btn('장바구니 담기','data-act="refillAdd"')}</div></div></div>` };
 HK.ACT.refillT = t=>{ t.querySelector('.check').classList.toggle('on'); const on=[...document.querySelectorAll('#refill .check.on')].map(c=>+c.closest('[data-p]').dataset.p); HK.$('#rcnt').textContent=on.length+'가지 선택'; HK.$('#rsum').textContent=won(on.reduce((a,b)=>a+b,0)); };
 HK.ACT.refillAdd = ()=>{ const on=[...document.querySelectorAll('#refill .check.on')].map(c=>+c.closest('[data-p]').dataset.p); const s=on.reduce((a,b)=>a+b,0); if(!s) return; S.cart.push({code:'THA',method:'리필',price:s,qty:1,opt:on.length+'가지'}); HK.save(); HK.toast('리필을 장바구니에 담았어요','cart'); setTimeout(()=>HK.back(),700); };
 
-SCR.K7 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
+SCR.K7 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
   <div class="h1">주문 내역 · 쿠폰</div>
   <div class="card" style="margin-top:18px;padding:18px"><div class="row sp"><span class="cap">11.04 주문</span><span class="pill or">배송 중</span></div><div class="row g12 mt12"><span style="color:var(--g)">${HK.lm('JPN',28)}</span><div class="f1"><div class="sb7">일본 · 첫 여행 키트</div><div class="xs">11월 6일 (금) 도착 예정</div></div><span class="sb7">14,900원</span></div></div>
   <div class="card mt8" style="padding:18px"><div class="row sp"><span class="cap">11.01 주문</span><span class="pill soft">도착</span></div><div class="row g12 mt12"><span style="color:var(--or)">${HK.lm('THA',28)}</span><div class="f1"><div class="sb7">태국 · 첫 여행 키트</div><div class="xs">11월 3일 (화) 도착</div></div><span class="sb7">14,900원</span></div></div>
@@ -251,7 +251,7 @@ SCR.passport = { tab:'passport', render:()=>{ const n=Object.keys(S.stamps).leng
   <div style="display:flex;justify-content:flex-end;margin-top:8px">${HK.chick('stamp',100,'hop')}</div></div></div>`; } };
 
 SCR.B3 = { render:p=>{ const k=HK.kit(p.code||'THA'); const has=!!S.stamps[k.code]; const rs=k.code==='THA'?[['팟카파오 무','돼지고기 바질볶음 · 15분','완성','pakkapao','assets/img/pakkapao.jpg'],['똠얌꿍','새콤매콤 수프 · 25분','2 / 5단계','','assets/img/tomyum.jpg'],['팟타이','쌀국수 볶음 · 20분','아직','','assets/img/padthai.jpg']]:k.recipes.map(r=>[r,'키트 레시피','아직','','']);
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
   <div class="card row g16" style="padding:20px;gap:16px"><div style="color:${has?'var(--or)':'rgba(17,17,17,.3)'}">${has?HK.stamp(k.code,{size:90,date:S.stamps[k.code]}):HK.stamp(k.code,{empty:true,size:90})}</div><div class="f1"><div class="cap or gs">${k.city}</div><div class="h2">${k.name} 요리</div><div class="xs mt4">${has?'도장 받은 날 · '+S.stamps[k.code]:'아직 도장이 없어요'}</div><div class="xs" style="font-weight:700;color:var(--g)">완성한 요리 ${has?1:0} / 3</div></div></div>
   <div class="h2 mt24">레시피 3개</div>
   ${rs.map(([t,s,st,id,im])=>`<div class="card mt8 row g12 tap" style="padding:12px 16px" ${id?`data-go="C1?id=${id}"`:'data-act="soon"'}>${HK.photo(im,48,12,'width:48px;flex:none')}<div class="f1"><div class="sb7">${t}</div><div class="xs">${s}</div></div><span class="pill ${st==='완성'?'':st==='아직'?'soft':'or'}" style="${st==='아직'?'background:#F0F2F0;color:var(--tx2)':''}">${st}</span></div>`).join('')}
@@ -259,7 +259,7 @@ SCR.B3 = { render:p=>{ const k=HK.kit(p.code||'THA'); const has=!!S.stamps[k.cod
   <div style="height:40px"></div></div></div>`; } };
 HK.ACT.soon = ()=>HK.toast('체험 버전에서는 팟카파오 무를 요리할 수 있어요','info',2000);
 
-SCR.B4 = { render:()=>`<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
+SCR.B4 = { render:()=>`<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll"><div class="top"></div><div class="pad">
   <div class="h1">도장이 쌓이면\n이렇게 달라져요</div>
   ${HK.LEVELS.map((l,i)=>`<div class="card ${i===0?'g':''}" style="margin-top:${i===0?28:12}px;padding:18px 20px"><div class="row sp"><span class="cap ${i===0?'lime':''}">${l[0]}</span>${i===0?'<span class="pill lime">지금 여기</span>':`<span class="xs">${l[2]}</span>`}</div><div class="bb mt4">${l[1]}</div><div class="xs mt4" style="${i===0?'color:var(--lime2)':''}">${i===0?l[2]+' · ':''}${l[3]}</div>${i===3?`<div style="position:absolute;right:16px;bottom:14px;color:var(--or)">${ic('gift',20)}</div>`:''}</div>`).join('')}
   <div class="row g12 mt24">${HK.chick('stamp',80,'hop')}<div class="s">도장은 레시피 3개 중\n하나만 완성해도 받을 수 있어요</div></div><div style="height:40px"></div></div></div>` };
@@ -272,7 +272,7 @@ SCR.B5 = { cls:'dark', darkBar:true, render:()=>`<div class="bar">${HK.backBtn(t
   <div class="mt16">${HK.btn('선물 키트 고르기','data-go="B6"','l')}</div><button class="link" data-go="E2A">여권 자랑하기</button><div style="height:30px"></div></div></div>` };
 
 SCR.B6 = { render:p=>{ const sel=p.sel||'FRA'; const k=HK.kit(sel);
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
   <div class="cap">WORLD CHEF GIFT</div><div class="h1 mt4">선물 받을 키트를\n하나 골라 주세요</div><div class="s" style="margin-top:12px">9개국 도장을 모두 모았어요. 어떤 나라든 1개 무료예요.</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">${HK.KITS.map(x=>{const on=x.code===sel;return `<button class="card ${on?'g':'ln'}" data-act="giftSel" data-c="${x.code}" style="height:124px;padding:16px 4px 0;text-align:center;transition:background .25s">
     <div style="color:${on?'var(--lime)':'var(--g)'};display:flex;justify-content:center">${HK.lm(x.code,28)}</div><div class="bb mt4 gs" style="color:${on?'var(--lime)':'var(--tx)'}">${x.code}</div><div class="sb7 gs" style="font-size:14px">${x.name.split(' ')[0]}</div><div class="xs" style="${on?'color:var(--lime2)':''}">${x.recipes[0]}</div>
@@ -282,7 +282,7 @@ SCR.B6 = { render:p=>{ const sel=p.sel||'FRA'; const k=HK.kit(sel);
 HK.ACT.giftSel = t=>{ const c=HK.cur(); c.params.sel=t.dataset.c; HK.rerender(); };
 
 SCR.B6C = { render:p=>{ const k=HK.kit(p.code||'FRA');
-  return `<div class="bar bg">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
+  return `<div class="bar">${HK.backBtn()}<span></span></div><div class="scroll" style="padding-bottom:110px"><div class="top"></div><div class="pad">
   <div class="h1">선물 받기</div>
   <div class="card" style="margin-top:20px;padding:22px 24px"><div class="cap">GIFT · WORLD CHEF</div>
    <div class="row g12 mt16" style="align-items:flex-start"><div style="width:40px;color:var(--g);text-align:center">${HK.lm(k.code,32)}<div class="cap" style="font-size:12px">${k.code}</div></div><div><div class="bb gs">${k.full}</div><div class="xs">${k.recipes.join(' · ')}</div><div class="xs">${k.tools.slice(0,3).join(' · ')}</div></div></div>
