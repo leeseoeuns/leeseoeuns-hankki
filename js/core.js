@@ -47,7 +47,7 @@ const P = {
   info:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 16v-4M12 8h.01', qr:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM20 14v.01M14 20h.01M17 17h4v4h-4',
   trash:'M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15', settings:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'
 };
-HK.ic = (n, size, extra='') => `<svg class="i" ${size?`style="width:${size}px;height:${size}px"`:''} viewBox="0 0 24 24" ${extra}><path d="${P[n]||''}"/></svg>`;
+HK.ic = (n, size, extra='') => `<svg class="i i-${n}" ${size?`style="width:${size}px;height:${size}px"`:''} viewBox="0 0 24 24" ${extra}><path d="${P[n]||''}"/></svg>`;
 /* GS 혜자로운(로컬 설치 서체)이 있으면 <html>에 has-gs — 서체별 글자 여백 차이 보정용 */
 if(document.fonts&&document.fonts.load) document.fonts.load('700 64px "HK Title"','THA').then(f=>{ if(f.length) document.documentElement.classList.add('has-gs'); }).catch(()=>{});
 HK.lm = (code, size=30, color='currentColor') => `<svg class="lm" style="width:${size}px;height:${size}px;color:${color}" viewBox="0 0 30 30"><path d="${HK.LM[code]}"/></svg>`;

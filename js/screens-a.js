@@ -23,16 +23,16 @@ HK.ACT.obNext = ()=>{ const c=HK.cur(); HK.go(SCR[c.name].next,{},'fade'); };
 HK.ACT.skipOnboard = ()=>HK.go('A3',{},'fade');
 
 SCR.A2 = onboard(1,'','향신료는\n딱 한 번 쓸 만큼만','다 못 쓰고 버리는 향신료 대신,\n한 끼에 필요한 만큼만 키트에 담았어요.',
- `<div class="card" style="height:100%;padding:24px;display:flex;flex-direction:column;justify-content:space-between">
+ `<div class="card" style="height:100%;padding:24px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
    <div class="cap">한 통 대신 한 끼</div>
-   <div class="row g12" style="align-items:flex-end">
-     <div style="text-align:center;flex:1"><div style="width:72px;height:120px;border-radius:14px;background:#E3E8E4;margin:0 auto;position:relative"><div style="position:absolute;left:0;right:0;bottom:0;height:85%;border-radius:0 0 14px 14px;background:#C9D2CB"></div></div><div class="sb7 mt12">마트 한 통</div><div class="xs">500ml · 몇 달씩 남아요</div></div>
-     <div style="color:var(--g)">${ic('arrow',28)}</div>
-     <div style="text-align:center;flex:1"><div style="width:44px;height:64px;border-radius:10px;background:var(--g);margin:0 auto;position:relative"><div style="position:absolute;left:8px;right:8px;top:10px;height:8px;border-radius:4px;background:var(--lime)"></div></div><div class="sb7 mt12">키트 한 끼</div><div class="xs">30ml · 딱 한 번</div></div>
-     ${HK.chick('taste',110,'bob')}
+   <div style="position:absolute;right:14px;top:14px">${HK.chick('taste',96,'bob')}</div>
+   <div class="row" style="align-items:flex-start;gap:4px">
+     <div style="text-align:center;flex:1"><div style="height:120px;display:flex;align-items:flex-end;justify-content:center"><div style="width:72px;height:120px;border-radius:14px;background:#E3E8E4;position:relative"><div style="position:absolute;left:0;right:0;bottom:0;height:85%;border-radius:0 0 14px 14px;background:#C9D2CB"></div></div></div><div class="sb7 mt12">마트 한 통</div><div class="xs" style="white-space:nowrap">500ml · 몇 달씩 남아요</div></div>
+     <div style="height:120px;display:flex;align-items:center;color:var(--g)">${ic('arrow',28)}</div>
+     <div style="text-align:center;flex:1"><div style="height:120px;display:flex;align-items:flex-end;justify-content:center"><div style="width:44px;height:64px;border-radius:10px;background:var(--g);position:relative"><div style="position:absolute;left:8px;right:8px;top:10px;height:8px;border-radius:4px;background:var(--lime)"></div></div></div><div class="sb7 mt12">키트 한 끼</div><div class="xs" style="white-space:nowrap">30ml · 딱 한 번</div></div>
    </div><span class="pill soft" style="align-self:flex-start">5인분 이내 · 소량</span></div>`,'A2b');
 SCR.A2b = onboard(2,'','QR 하나면\n레시피가 열려요','키트 속 여권 카드의 QR을 찍으면\n그 나라 레시피와 대체 재료가 바로 보여요.',
- `<div class="card g" style="height:100%;display:grid;place-items:center"><div style="text-align:center"><div class="qr" style="width:160px;height:160px"><i></i><i></i><i></i><i></i><div style="position:absolute;inset:34px;display:grid;place-items:center;color:var(--lime)">${ic('qr',72)}</div></div><div class="row g8 mt24" style="justify-content:center">${HK.chick('wave',90,'sway')}<span class="pill lime">THA 레시피 열림</span></div></div></div>`,'A2c');
+ `<div class="card g" style="height:100%;display:grid;place-items:center"><div style="text-align:center"><div class="qr" style="width:160px;height:160px"><i></i><i></i><i></i><i></i><div style="position:absolute;inset:34px;display:grid;place-items:center;color:var(--lime)">${ic('qr',72)}</div></div><div class="row g8 mt24" style="justify-content:center">${HK.chick('wave',90,'sway','position:relative;left:-16px')}<span class="pill lime">THA 레시피 열림</span></div></div></div>`,'A2c');
 SCR.A2c = onboard(3,'','요리를 끝내면\n그 나라 도장이 쾅','9개 나라 도장을 모두 모으면\n원하는 키트 하나를 선물로 드려요.',
  `<div class="card" style="height:100%;padding:20px;position:relative;overflow:hidden"><div class="cap">MY PASSPORT</div><div class="h2 mt4">세라의 요리 여권</div>
    <div class="row g8 mt16">${HK.stamp('THA',{size:76,date:'03 NOV 26'})}${HK.stamp('JPN',{size:70,date:'12 NOV 26',rot:6})}</div>
@@ -41,12 +41,12 @@ SCR.A2c = onboard(3,'','요리를 끝내면\n그 나라 도장이 쾅','9개 나
    <div style="position:absolute;right:12px;bottom:12px">${HK.chick('trophy',130,'hop')}</div></div>`,'A3',true);
 
 SCR.A3 = { render:()=>`<div class="scroll"><div class="top"></div><div class="pad">
-   <div class="ticket g" style="padding:24px;height:300px"><div class="cap lime">BOARDING PASS</div>
+   <div class="ticket g" style="padding:24px;height:240px"><div class="cap lime">BOARDING PASS</div>
      <div class="row sp mt24"><div><div class="xs" style="color:var(--lime2)">FROM</div><div style="font-size:28px;font-weight:700">HOME</div></div>${ic('arrow',28)}<div style="text-align:right"><div class="xs" style="color:var(--lime2)">TO</div><div style="font-size:28px;font-weight:700;color:var(--lime)">THA</div></div></div>
-     <div class="perf" style="top:190px"></div><div class="notch" style="left:-12px;top:178px"></div><div class="notch" style="right:-12px;top:178px"></div>
-     <div class="row sp" style="margin-top:58px"><div><div class="xs" style="color:var(--lime2)">PASSENGER</div><div class="bb">이세라</div></div><div><div class="xs" style="color:var(--lime2)">SEAT</div><div class="bb">1인분</div></div><div><div class="xs" style="color:var(--lime2)">GATE</div><div class="bb">키트 QR</div></div></div></div>
-   <div class="h1 mt32">키트 QR을 찍으면\n요리 여행이 시작돼요</div>
-   <div style="position:absolute;right:28px;top:470px">${HK.chick('travel',120,'bob')}</div></div></div>
+     <div class="perf" style="top:150px"></div><div class="notch" style="left:-12px;top:138px"></div><div class="notch" style="right:-12px;top:138px"></div>
+     <div class="row sp" style="position:absolute;left:24px;right:24px;top:174px"><div><div class="xs" style="color:var(--lime2)">PASSENGER</div><div class="bb">이세라</div></div><div><div class="xs" style="color:var(--lime2)">SEAT</div><div class="bb">1인분</div></div><div><div class="xs" style="color:var(--lime2)">GATE</div><div class="bb">키트 QR</div></div></div></div>
+   <div class="h1" style="margin-top:112px">키트 QR을 찍으면\n요리 여행이 시작돼요</div>
+   <div style="position:absolute;right:28px;top:490px">${HK.chick('travel',120,'bob')}</div></div></div>
    <div class="bot">${HK.btn('키트 QR 찍기','data-go="A4" data-mode="fade"')}<button class="link" data-act="lookAround">키트 없이 둘러보기</button></div>` };
 HK.ACT.lookAround = ()=>{ S.onboarded=true; HK.save(); HK.go('home',{},'root'); };
 
